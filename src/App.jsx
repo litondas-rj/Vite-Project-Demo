@@ -1,19 +1,17 @@
 import * as React from 'react';
 import { CssBaseline } from '@mui/material';
-import usePlaylists from './hooks/usePlaylists';
 import Navbar from './component/navbar/navbar';
 import FormDialog from './component/playlist-form/playlistForm';
+import usePlaylists from './hooks/usePlaylists';
 const App = () => {
-  const {getPlaylistById,playlists}=usePlaylists()
-React.useEffect(()=>{
-  getPlaylistById('PLXCoHsJ9oLedeccx2fgbML0OSAy72vraO')
-},[])
+const {playlists,getPlaylistById}=usePlaylists()
+  
   console.log(playlists);
   
   return (
     <>
       <CssBaseline>
-      <Navbar></Navbar>
+      <Navbar getPlaylistById={getPlaylistById}/>
       <FormDialog/>
       </CssBaseline>
     </>

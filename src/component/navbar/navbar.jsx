@@ -1,25 +1,25 @@
-import * as React from 'react';
+import { useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import { Button, Container, Stack } from '@mui/material';
-const Navbar=()=> {
-  const [auth, setAuth] = React.useState(true);
-  const [anchorEl, setAnchorEl] = React.useState(null);
+import PlaylistForm from '../playlist-form/playlistForm';
+const Navbar=({getPlaylistById})=> {
+    const [open, setOpen] =useState(false);
 
-  const handleChange = (event) => {
-    setAuth(event.target.checked);
-  };
-
-  const handleMenu = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
+    const handleClickOpen = () => {
+      setOpen(true);
+    };
+  
+    const handleClose = () => {
+      setOpen(false);
+    };
+  
+    const getPlaylistId=(playlistId)=>{
+        getPlaylistById(playlistId)
+       
+    }   
   return (
     
     <>
@@ -32,8 +32,8 @@ const Navbar=()=> {
             Js Course
           </Typography>
           </Stack>
-          <Button variant='contained'>add your link</Button>
-          
+          <Button onClick={handleClickOpen} variant='contained'>add your link</Button>
+          <PlaylistForm open={open} handleClose={handleClose} getPlaylistId={getPlaylistId}/>
         </Toolbar>
       </AppBar>
     </Box>

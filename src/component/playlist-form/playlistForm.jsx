@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
@@ -7,17 +7,19 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
-const FormDialog=()=>{
-  const [open, setOpen] = React.useState(false);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
+const PlaylistForm=({open,handleClose,getPlaylistId})=>{
+ const [state,setState]=useState('')
+ const handleSubmit=(e)=>{
+    if(!state){
+        alert('Invalid Url')
+    }else{
+        
+        getPlaylistId(state);
+        setState('')
+        handleClose()
+    }
+    
+ }
   return (
     <React.Fragment>
       <Dialog
@@ -45,20 +47,21 @@ const FormDialog=()=>{
             autoFocus
             required
             margin="dense"
-            id="name"
-            name="email"
-            label="Email Address"
-            type="email"
+            id="playlistId"
+            name="playlistId"
+            label="Your Playlist Id"
+            type="text"
             fullWidth
             variant="standard"
+            onChange={(e)=>setState(e.target.value)}
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button type="submit">Subscribe</Button>
+          <Button onClick={handleClose}>Close</Button>
+          <Button onClick={handleSubmit} >Submit</Button>
         </DialogActions>
       </Dialog>
     </React.Fragment>
   );
 }
-export default FormDialog
+export default PlaylistForm
