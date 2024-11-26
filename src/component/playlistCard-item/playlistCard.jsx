@@ -4,7 +4,6 @@ import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
-import Collapse from '@mui/material/Collapse';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { Button } from '@mui/material';
@@ -42,10 +41,10 @@ const PlaylistCard=({playlistThumbnail,playlistTitle,playlistDescription})=> {
      
       <CardMedia
         component="img"
-        height="194"
-        image={playlistThumbnail}
+        src={`${playlistThumbnail}`}
         alt={playlistTitle}
       />
+    
       <CardContent>
         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
             {playlistTitle}

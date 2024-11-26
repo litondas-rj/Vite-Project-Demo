@@ -6,12 +6,16 @@ const key = import.meta.env.VITE_YOUTUBE_API;
 const GetPlaylistItem = async (playlistId, PageToken = "", result = []) => {
   const Url = `https://www.googleapis.com/youtube/v3/playlistItems?key=${key}&part=id,contentDetails,snippet,status&nextPageToken=${PageToken}&maxResults=50&playlistId=${playlistId}`;
   const { data } = await axios.get(Url);
+
   result = [...result, ...data.items];
+
   if (data.nextPageToken) {
-    GetPlaylist(playlistId, data.nextPageToken.result);
-  }
-  return result;
+      result= GetPlaylistItem(playlistId, data.nextPageToken, result);
+      console.log('iam arry',result)
+}
+return result;
 };
+
 const GetPlaylist = async (playlistId) => {
   const Url = `https://www.googleapis.com/youtube/v3/playlists?part=snippet&id=${playlistId}&maxResults=100&key=${key}`;
   const { data } = await axios.get(Url);

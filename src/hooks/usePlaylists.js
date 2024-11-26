@@ -1,19 +1,36 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import GetPlaylist from "../api/api";
-
-const usePlaylists = () => {
-  const [state, setState] = useState({
+import storage from "../utils/localStorage";
+const INIT_DATA={
     playlists: {},
     recentPlaylists: [],
     favorites: [],
-  });
+  }
+const STORAGE_KEY='clen_youtube_Playlist_state'
+const usePlaylists = () => {
+  const [state, setState] = useState(INIT_DATA);
   const [isLoding, setLoding] = useState(false);
+
+  useEffect(()=>{
+    const state=storage.getData(STORAGE_KEY)
+    if(state){
+        setState({...state})
+    }
+    
+  },[])
+  useEffect(()=>{
+    if(state!==INIT_DATA){
+
+        storage.saveData(STORAGE_KEY,state)
+    }
+  },[state])
+
   const getPlaylistById = async (playlistId, forch = false) => {
     if (state.playlists[playlistId] && !forch) {
       return;
     }
     try {
-        setLoding(true)
+      setLoding(true)
       const playlist = await GetPlaylist(playlistId);
       setState((prev) => ({
         ...prev,
